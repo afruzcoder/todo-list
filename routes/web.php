@@ -4,9 +4,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [WelcomeController::class, 'index']);
+
+Route::get('/', function(){
+    return view('task.index');
 });
+
+Route::resource('/tasks', \App\Http\Controllers\TaskController::class)->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
