@@ -1,25 +1,31 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
+    <h1 class="mb-2 text-center text-xl font-semibold">{{ __('Forgot your password?') }}</h1>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <p class="mb-6 text-center text-sm opacity-60">
+        {{ __('No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+    </p>
 
-    <form method="POST" action="{{ route('password.email') }}">
+    @if (session('status'))
+        <div class="alert alert-success mb-4 text-sm">
+            <span>{{ session('status') }}</span>
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('password.email') }}" class="space-y-4">
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="form-control">
+            <label class="label" for="email"><span class="label-text">{{ __('Email') }}</span></label>
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                class="input input-bordered w-full" />
+            @error('email')
+                <span class="mt-1 text-sm text-error">{{ $message }}</span>
+            @enderror
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+        <div class="flex items-center justify-between">
+            <a class="link link-primary text-sm" href="{{ route('login') }}">{{ __('Back to login') }}</a>
+            <button type="submit" class="btn btn-primary">{{ __('Email reset link') }}</button>
         </div>
     </form>
 </x-guest-layout>

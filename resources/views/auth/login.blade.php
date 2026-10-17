@@ -1,95 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-guest-layout>
+    <h1 class="mb-6 text-center text-xl font-semibold">Login</h1>
 
-<head>
+    @if (session('status'))
+        <div class="alert alert-success mb-4 text-sm">
+            <span>{{ session('status') }}</span>
+        </div>
+    @endif
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <form method="POST" action="{{ route('login') }}" class="space-y-4">
+        @csrf
 
-    <title>Login</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <!-- <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet"> -->
-
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-</head>
-
-<body class="bg-gradient-primary">
-
-<div class="container">
-
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
-
-        <div class="col-xl-10 col-lg-12 col-md-9">
-
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Login Form</h1>
-                                </div>
-                                <form class="user" action="{{route('login')}}" method="post">
-                                    @csrf
-                                    <div class="form-group">
-                                        <input type="email" name="email" class="form-control form-control-user"
-                                               id="exampleInputEmail" aria-describedby="emailHelp"
-                                               placeholder="Enter Email Address...">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="password" class="form-control form-control-user"
-                                               id="exampleInputPassword" placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" name="rememberme" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
-                                        </div>
-                                    </div>
-                                    <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
-                                </form>
-                                <hr>
-                                <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="{{route('register')}}">Create an Account!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="form-control">
+            <label class="label" for="email"><span class="label-text">{{ __('Email') }}</span></label>
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                autocomplete="username" class="input input-bordered w-full" placeholder="you@example.com" />
+            @error('email')
+                <span class="mt-1 text-sm text-error">{{ $message }}</span>
+            @enderror
         </div>
 
-    </div>
+        <div class="form-control">
+            <label class="label" for="password"><span class="label-text">{{ __('Password') }}</span></label>
+            <input id="password" type="password" name="password" required autocomplete="current-password"
+                class="input input-bordered w-full" placeholder="••••••••" />
+            @error('password')
+                <span class="mt-1 text-sm text-error">{{ $message }}</span>
+            @enderror
+        </div>
 
-</div>
+        <label class="label cursor-pointer justify-start gap-2">
+            <input type="checkbox" name="remember" class="checkbox checkbox-sm checkbox-primary" />
+            <span class="label-text">{{ __('Remember me') }}</span>
+        </label>
 
-<!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <div class="flex items-center justify-between pt-2">
+            @if (Route::has('password.request'))
+                <a class="link link-primary text-sm" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
 
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+            <button type="submit" class="btn btn-primary">{{ __('Log in') }}</button>
+        </div>
 
-<!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
-
-</body>
-
-</html>
+        <p class="pt-2 text-center text-sm opacity-70">
+            {{ __("Don't have an account?") }}
+            <a class="link link-primary" href="{{ route('register') }}">{{ __('Register') }}</a>
+        </p>
+    </form>
+</x-guest-layout>
