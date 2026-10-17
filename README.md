@@ -1,74 +1,74 @@
 # To-Do List
 
-Веб-приложение для управления личными задачами на Laravel: регистрация и вход,
-список задач с поиском и фильтрами, дашборд со статистикой, профиль пользователя
-и тёмная тема оформления.
+A Laravel web application for managing personal tasks: registration and login,
+a task list with search and filters, a stats dashboard, a user profile, and a
+dark theme.
 
-Каждый пользователь видит и редактирует **только свои** задачи.
-
----
-
-## Возможности
-
-- **Аутентификация (Laravel Breeze, Blade):** регистрация, вход, выход, сброс пароля,
-  подтверждение пароля.
-- **Профиль:** изменение имени, фамилии, телефона, email и пароля; удаление аккаунта.
-- **Задачи:**
-  - создание, просмотр, редактирование и удаление;
-  - привязка к текущему пользователю (изоляция данных);
-  - серверная валидация полей (в т.ч. `endTime >= startTime`, корректность enum-полей);
-  - поля: название, описание, статус (`not started` / `doing` / `done`),
-    приоритет (`low` / `medium` / `high`), дата начала и дата окончания.
-- **Реактивный список задач (Livewire 4):** поиск по названию/описанию, фильтры
-  по статусу и приоритету, пагинация, удаление с подтверждением — без перезагрузки страницы.
-- **Дашборд:** счётчики задач по статусам и приоритетам, список последних задач.
-- **Тёмный режим:** переключатель в навбаре с сохранением выбора и учётом системной темы.
+Each user sees and edits **only their own** tasks.
 
 ---
 
-## Стек технологий
+## Features
 
-| Слой | Технологии |
+- **Authentication (Laravel Breeze, Blade):** registration, login, logout,
+  password reset, password confirmation.
+- **Profile:** edit name, surname, phone, email and password; delete the account.
+- **Tasks:**
+  - create, view, edit and delete;
+  - bound to the current user (data isolation);
+  - server-side validation (including `endTime >= startTime` and valid enum values);
+  - fields: name, description, status (`not started` / `doing` / `done`),
+    priority (`low` / `medium` / `high`), start date and end date.
+- **Reactive task list (Livewire 4):** search by name/description, filters by
+  status and priority, pagination, delete with confirmation — no page reloads.
+- **Dashboard:** task counters by status and priority, plus a list of recent tasks.
+- **Dark mode:** navbar toggle that remembers the choice and respects the system theme.
+
+---
+
+## Tech Stack
+
+| Layer | Technologies |
 |---|---|
 | Backend | PHP 8.2+, Laravel 11 |
-| Аутентификация | Laravel Breeze (Blade-стек) |
-| Интерактив | Livewire 4 |
+| Authentication | Laravel Breeze (Blade stack) |
+| Interactivity | Livewire 4 |
 | Frontend | Vite 6, Tailwind CSS 3, DaisyUI 4, Alpine.js 3 |
-| БД | MySQL |
-| Тесты | Pest 3 |
-| Форматирование кода | Laravel Pint |
+| Database | MySQL |
+| Testing | Pest 3 |
+| Code style | Laravel Pint |
 
 ---
 
-## Требования
+## Requirements
 
-- **PHP 8.2+** с расширениями `pdo_mysql`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`, `fileinfo`.
+- **PHP 8.2+** with the `pdo_mysql`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`, `fileinfo` extensions.
 - **Composer**
-- **Node.js 18+** и **npm**
+- **Node.js 18+** and **npm**
 - **MySQL** 5.7+ / 8.x
 
 ---
 
-## Установка
+## Installation
 
-1. Клонируйте репозиторий и перейдите в папку проекта:
+1. Clone the repository and enter the project directory:
    ```bash
    git clone https://github.com/afruzcoder/todo-list.git
    cd todo-list
    ```
 
-2. Установите PHP-зависимости:
+2. Install PHP dependencies:
    ```bash
    composer install
    ```
 
-3. Создайте файл окружения и сгенерируйте ключ приложения:
+3. Create the environment file and generate the app key:
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
 
-4. Настройте подключение к БД в `.env`:
+4. Configure the database in `.env`:
    ```dotenv
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
@@ -77,23 +77,23 @@
    DB_USERNAME=root
    DB_PASSWORD=
    ```
-   Предварительно создайте базу данных, например:
+   Create the database first, for example:
    ```sql
    CREATE DATABASE laravel_todo_list CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
    ```
 
-5. Выполните миграции:
+5. Run the migrations:
    ```bash
    php artisan migrate
    ```
 
-6. (Необязательно) Заполните БД тестовыми данными:
+6. (Optional) Seed the database with sample data:
    ```bash
    php artisan db:seed
    ```
-   Будет создан пользователь: **email `test@example.com`**, **пароль `password`**.
+   This creates a user: **email `test@example.com`**, **password `password`**.
 
-7. Установите и соберите фронтенд-зависимости:
+7. Install and build the frontend dependencies:
    ```bash
    npm install
    npm run build
@@ -101,23 +101,23 @@
 
 ---
 
-## Запуск
+## Running
 
-Запустите локальный сервер:
+Start the local server:
 
 ```bash
 php artisan serve
 ```
 
-Приложение будет доступно по адресу **http://127.0.0.1:8000**.
+The app will be available at **http://127.0.0.1:8000**.
 
-Во время разработки фронтенда удобно запускать Vite в режиме горячей перезагрузки:
+During frontend development it is convenient to run Vite with hot reload:
 
 ```bash
 npm run dev
 ```
 
-Либо одной командой (сервер + очередь + Vite):
+Or run everything at once (server + queue + Vite):
 
 ```bash
 composer dev
@@ -125,70 +125,70 @@ composer dev
 
 ---
 
-## Маршруты
+## Routes
 
-| Метод | URI | Назначение | Middleware |
+| Method | URI | Purpose | Middleware |
 |---|---|---|---|
-| GET | `/` | Экран входа | — |
-| GET | `/register`, POST `/register` | Регистрация | guest |
-| GET | `/login`, POST `/login` | Вход | guest |
-| POST | `/logout` | Выход | auth |
-| GET | `/forgot-password` … | Сброс пароля | guest |
-| GET | `/dashboard` | Дашборд | auth |
-| GET | `/tasks` | Список задач | auth |
-| GET | `/tasks/create` | Форма создания | auth |
-| POST | `/tasks` | Сохранить задачу | auth |
-| GET | `/tasks/{task}` | Просмотр задачи | auth |
-| GET | `/tasks/{task}/edit` | Форма редактирования | auth |
-| PUT/PATCH | `/tasks/{task}` | Обновить задачу | auth |
-| DELETE | `/tasks/{task}` | Удалить задачу | auth |
-| GET/PATCH/DELETE | `/profile` | Профиль пользователя | auth |
+| GET | `/` | Login screen | — |
+| GET | `/register`, POST `/register` | Registration | guest |
+| GET | `/login`, POST `/login` | Login | guest |
+| POST | `/logout` | Logout | auth |
+| GET | `/forgot-password` … | Password reset | guest |
+| GET | `/dashboard` | Dashboard | auth |
+| GET | `/tasks` | Task list | auth |
+| GET | `/tasks/create` | Create form | auth |
+| POST | `/tasks` | Store a task | auth |
+| GET | `/tasks/{task}` | View a task | auth |
+| GET | `/tasks/{task}/edit` | Edit form | auth |
+| PUT/PATCH | `/tasks/{task}` | Update a task | auth |
+| DELETE | `/tasks/{task}` | Delete a task | auth |
+| GET/PATCH/DELETE | `/profile` | User profile | auth |
 
-Доступ к чужим задачам запрещён политикой `TaskPolicy` (ответ `403`).
+Access to other users' tasks is denied by `TaskPolicy` (response `403`).
 
 ---
 
-## Структура проекта
+## Project Structure
 
 ```
 app/
 ├── Http/
 │   ├── Controllers/
-│   │   ├── TaskController.php        # CRUD задач (+ авторизация)
-│   │   ├── ProfileController.php     # профиль
-│   │   └── Auth/                     # контроллеры Breeze
+│   │   ├── TaskController.php        # task CRUD (+ authorization)
+│   │   ├── ProfileController.php     # profile
+│   │   └── Auth/                     # Breeze controllers
 │   └── Requests/
-│       ├── TaskRequest.php           # валидация задач
-│       └── ProfileUpdateRequest.php  # валидация профиля
+│       ├── TaskRequest.php           # task validation
+│       └── ProfileUpdateRequest.php  # profile validation
 ├── Livewire/
-│   ├── TaskList.php                  # реактивный список задач
-│   └── Dashboard.php                 # статистика дашборда
+│   ├── TaskList.php                  # reactive task list
+│   └── Dashboard.php                 # dashboard stats
 ├── Models/
-│   ├── Task.php                      # belongsTo User, касты дат
+│   ├── Task.php                      # belongsTo User, date casts
 │   └── User.php                      # hasMany Task
-└── Policies/TaskPolicy.php           # доступ по владельцу
+└── Policies/TaskPolicy.php           # ownership-based access
 
 resources/
 ├── css/app.css                       # Tailwind + DaisyUI
 ├── js/app.js                         # Alpine
 └── views/
-    ├── layouts/{app,guest}.blade.php # макеты (навбар, тёмная тема)
-    ├── livewire/                      # шаблоны Livewire-компонентов
-    ├── task/                          # страницы задач
-    ├── auth/                          # экраны аутентификации
-    └── profile/                       # страницы профиля
+    ├── layouts/{app,guest}.blade.php # layouts (navbar, dark theme)
+    ├── livewire/                      # Livewire component templates
+    ├── task/                          # task pages
+    ├── auth/                          # authentication screens
+    └── profile/                       # profile pages
 
 database/
 ├── factories/                        # UserFactory, TaskFactory
-├── migrations/                       # схема БД
+├── migrations/                       # database schema
 └── seeders/DatabaseSeeder.php
 
-tests/Feature/                        # Pest-тесты (auth, профиль, задачи)
+tests/Feature/                        # Pest tests (auth, profile, tasks)
 ```
 
 ---
 
-## Модель данных
+## Data Model
 
 **users:** `name`, `surname` (nullable), `email` (unique), `phone` (nullable), `password`.
 
@@ -196,29 +196,22 @@ tests/Feature/                        # Pest-тесты (auth, профиль, �
 (enum: `done`, `doing`, `not started`), `priority` (enum: `low`, `medium`, `high`),
 `startTime` (date), `endTime` (date).
 
-Связи: `User hasMany Task`, `Task belongsTo User`.
+Relationships: `User hasMany Task`, `Task belongsTo User`.
 
 ---
 
-## Тестирование
+## Testing
 
 ```bash
 php artisan test
 ```
 
-Тесты используют SQLite в памяти (настраивается в `phpunit.xml`), поэтому MySQL
-для их запуска не требуется. Покрыты регистрация/вход, сброс пароля, профиль,
-CRUD задач, валидация и изоляция задач между пользователями.
+Tests run against in-memory SQLite (configured in `phpunit.xml`), so MySQL is not
+required for them. Coverage includes registration/login, password reset, profile,
+task CRUD, validation, and task isolation between users.
 
-Форматирование кода:
+Code formatting:
 
 ```bash
 ./vendor/bin/pint
 ```
-
----
-
-## Контакты
-
-- **Email:** nizomitdinov.afruziddin@gmail.com
-- **GitHub:** [afruzcoder](https://github.com/afruzcoder)
